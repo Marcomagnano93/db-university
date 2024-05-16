@@ -56,7 +56,7 @@ WHERE `phone` IS NULL;
 
 1. Selezionare tutti gli studenti iscritti al Corso di Laurea in Economia
 
-SELECT students.*
+SELECT `students`.`surname`, `students`.`name`, `students`.`degree_id`, `students`.`email`
 FROM `students`
 INNER JOIN `degrees`
 ON `students`.`degree_id` = `degrees`.`id`
@@ -74,7 +74,7 @@ AND `departments`.`name` = 'Dipartimento di Neuroscienze';
 
 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
 
-SELECT `courses`.*, `teachers`.`name`, `teachers`.`surname`, `teachers`.`id`
+SELECT `courses`.`name` AS 'course_name'
 FROM `courses`
 INNER JOIN `course_teacher`
 ON `course_teacher`.`course_id` = `courses`.`id`
@@ -96,7 +96,7 @@ ORDER BY `student_surname`;
 
 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
 
-SELECT `degrees`.*, `courses`.*, `teachers`.*
+SELECT `degrees`.`name` AS 'degree', `courses`.`name` AS 'courses', `teachers`.`surname` AS 'teacher'
 FROM `degrees`
 INNER JOIN `courses`
 ON `courses`.`degree_id` = `degrees`.`id`
