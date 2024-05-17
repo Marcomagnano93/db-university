@@ -92,7 +92,7 @@ INNER JOIN `degrees`
 ON `students`.`degree_id` = `degrees`.`id`
 INNER JOIN `departments`
 ON `degrees`.`department_id` = `departments`.`id`
-ORDER BY `student_surname`;
+ORDER BY `student_surname`, `student_name`;
 
 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
 
@@ -123,6 +123,18 @@ WHERE `departments`.`name` = 'Dipartimento di Matematica';
 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti
 per ogni esame, stampando anche il voto massimo. Successivamente,
 filtrare i tentativi con voto minimo 18
+
+SELECT `students`.`surname` AS 'student_surname', `courses`.`name` AS 'course_name', COUNT(*) AS 'student_exam_aptent', MAX(`exam_student`.`vote`) AS 'max_vote'
+FROM `students`
+JOIN `exam_student`
+ON `exam_student`.`student_id` = `students`.`id`
+JOIN `exams`
+ON `exam_student`.`exam_id` = `exams`.`id`
+JOIN `courses`
+ON `exams`.`course_id` = `courses`.`id`
+GROUP BY `students`.`id`,  `courses`.`id`
+HAVING `exam_student`.`vote` >= 18;
+
 
 <!-- GROUP BY -->
 
